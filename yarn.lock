@@ -7593,6 +7593,11 @@ typedoc-default-themes@^0.11.4:
   resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.11.4.tgz#1bc55b7c8d1132844616ff6f570e1e2cd0eb7343"
   integrity sha512-Y4Lf+qIb9NTydrexlazAM46SSLrmrQRqWiD52593g53SsmUFioAsMWt8m834J6qsp+7wHRjxCXSZeiiW5cMUdw==
 
+typedoc-monorepo-link-types@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/typedoc-monorepo-link-types/-/typedoc-monorepo-link-types-0.0.4.tgz#d2875e5802a928738493f7d7e80265d547ef1970"
+  integrity sha512-fAxmfoJSp6cvT+I9/pN9pS2R8EoKUHaKU095E6H7FwN4tZUXPri5CZkxi9JLRlM5SV+pQwIlYnx9b+hnVP0nHA==
+
 typedoc-plugin-markdown@^3.13.6:
   version "3.13.6"
   resolved "https://registry.yarnpkg.com/typedoc-plugin-markdown/-/typedoc-plugin-markdown-3.13.6.tgz#a419794e3bdbe459fb22772d8e6e02bac05211c1"

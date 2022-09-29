@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'DBM Mods Documentation',
   tagline: 'For all your dbm mod development needs.',
-  url: 'https://dbm-network.github.io/',
+  url: 'https://docs.dbm-network.org/',
   baseUrl: '/documentation/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -133,7 +133,8 @@ const config = {
         excludeExternals: true,
         plugin: [
           'typedoc-plugin-merge-modules',
-          'typedoc-cross-link-types'
+          'typedoc-cross-link-types',
+          'typedoc-monorepo-link-types'
         ],
         categorizeByGroup: false,
 

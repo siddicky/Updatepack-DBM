@@ -33,6 +33,7 @@
     "jsdoc-to-markdown": "^7.1.1",
     "typedoc": "^0.23.15",
     "typedoc-cross-link-types": "^1.0.2",
+    "typedoc-monorepo-link-types": "^0.0.4",
     "typedoc-plugin-markdown": "^3.13.6",
     "typedoc-plugin-merge-modules": "^4.0.1",
     "typedoc-plugin-typescript-declaration": "^0.6.0",

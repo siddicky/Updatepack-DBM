@@ -48,7 +48,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `type` | `MsgType` |
+| `type` | [`MsgType`](enums/MsgType.md) |
 
 #### Returns
 
