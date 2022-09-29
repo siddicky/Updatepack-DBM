@@ -6,18 +6,18 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'DBM Mods Documentation',
+  tagline: 'For all your dbm mod development needs.',
   url: 'http://localhost:3000',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'dbm-network', // Usually your GitHub org/user name.
+  projectName: 'documentation', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -34,17 +34,6 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -57,23 +46,17 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'DBM Mods Documentation',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'DBM-Network-Logo',
+          src: 'img/docusaurus.png',
         },
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'DiscordBotMaker216/modules',
             position: 'left',
-            label: 'Tutorial',
-          },
-          {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
+            label: 'Documentation',
           },
         ],
       },
@@ -84,8 +67,8 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Documentation',
+                to: '/docs/DiscordBotMaker216',
               },
             ],
           },
@@ -93,40 +76,89 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'DBM Mods Discord',
+                href: 'https://discord.gg/djcvWRpgHm',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Discord Bot Maker Discord',
+                href: 'https://discord.gg/DMDvzSe',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'Raw Data Sharing',
+                href: 'https://rawdata.dbm-network.org/commands',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Github',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'Mods',
+                href: 'https://github.com/dbm-network/mods',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Themes',
+                href: 'https://github.com/dbm-network/themes',
+              },
+              {
+                label: 'Translations',
+                href: 'https://github.com/dbm-network/translations',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} DBM Network. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
     }),
+  plugins: [
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        id: 'DiscordBotMaker2.1.6',
+        // tsconfig: 'tsconfig.json',
+        entryPoints: ['./DBM/2.1.6/bot.d.ts'],
+        entryPointStrategy: 'expand',
+        disableSources: true,
+        hideGenerator: true,
+        includeVersion: true,
+        // @ts-ignore
+        name: 'DBM bot.js',
+        excludeExternals: true,
+        plugin: ['typedoc-plugin-merge-modules'],
+        categorizeByGroup: false,
+
+        // @ts-ignore
+        out: `DiscordBotMaker216`,
+        sidebar: {
+          // @ts-ignore
+          categoryLabel: 'Discord Bot Maker - 2.1.6',
+          position: 0,
+          fullNames: false,
+        },
+      },
+    ],
+    [
+      require.resolve("@cmfcmf/docusaurus-search-local"),
+      {
+        indexDocs: true,
+        language: "en",
+
+        lunr: {
+          tokenizerSeparator: /[\s\-]+/,
+          b: 0.75,
+          k1: 1.2,
+          titleBoost: 5,
+          contentBoost: 1,
+          tagsBoost: 3,
+          parentCategoriesBoost: 2, // Only used when indexDocSidebarParentCategories > 0
+        }
+      }
+    ]
+  ]
 };
 
 module.exports = config;
