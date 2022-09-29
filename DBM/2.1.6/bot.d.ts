@@ -19,50 +19,51 @@
 
 import * as DiscordJS from 'discord.js';
 import { setTimeout } from 'node:timers/promises';
+import { MsgType } from '../../temp/types/index';
 
 namespace DBM {
   const version: string;
   const DiscordJS: typeof DiscordJS;
 }
 
-const requiredDjsVersion = "13.7.0";
+const requiredDjsVersion = '13.7.0';
 
 const noop = () => void 0;
 
-const MsgType = {
-  MISSING_ACTION: 0,
-  DATA_PARSING_ERROR: 1,
-  MISSING_ACTIONS: 2,
+enum MsgType {
+  MISSING_ACTION = 0,
+  DATA_PARSING_ERROR = 1,
+  MISSING_ACTIONS = 2,
 
-  DUPLICATE_SLASH_COMMAND: 3,
-  INVALID_SLASH_NAME: 4,
-  DUPLICATE_USER_COMMAND: 5,
-  DUPLICATE_MESSAGE_COMMAND: 6,
-  DUPLICATE_SLASH_PARAMETER: 7,
-  INVALID_SLASH_PARAMETER_NAME: 8,
-  INVALID_SLASH_COMMAND_SERVER_ID: 9,
-  DUPLICATE_BUTTON_ID: 10,
-  DUPLICATE_SELECT_ID: 11,
-  TOO_MANY_SPACES_SLASH_NAME: 12,
-  SUB_COMMAND_ALREADY_EXISTS: 13,
-  SUB_COMMAND_GROUP_ALREADY_EXISTS: 14,
+  DUPLICATE_SLASH_COMMAND = 3,
+  INVALID_SLASH_NAME = 4,
+  DUPLICATE_USER_COMMAND = 5,
+  DUPLICATE_MESSAGE_COMMAND = 6,
+  DUPLICATE_SLASH_PARAMETER = 7,
+  INVALID_SLASH_PARAMETER_NAME = 8,
+  INVALID_SLASH_COMMAND_SERVER_ID = 9,
+  DUPLICATE_BUTTON_ID = 10,
+  DUPLICATE_SELECT_ID = 11,
+  TOO_MANY_SPACES_SLASH_NAME = 12,
+  SUB_COMMAND_ALREADY_EXISTS = 13,
+  SUB_COMMAND_GROUP_ALREADY_EXISTS = 14,
 
-  MISSING_APPLICATION_COMMAND_ACCESS: 100,
-  MISSING_MUSIC_MODULES: 101,
+  MISSING_APPLICATION_COMMAND_ACCESS = 100,
+  MISSING_MUSIC_MODULES = 101,
 
-  MUTABLE_VOLUME_DISABLED: 200,
-  MUTABLE_VOLUME_NOT_IN_CHANNEL: 201,
-  ERROR_GETTING_YT_INFO: 202,
-  ERROR_CREATING_AUDIO: 203,
+  MUTABLE_VOLUME_DISABLED = 200,
+  MUTABLE_VOLUME_NOT_IN_CHANNEL = 201,
+  ERROR_GETTING_YT_INFO = 202,
+  ERROR_CREATING_AUDIO = 203,
 
-  MISSING_MEMBER_INTENT_FIND_USER_ID: 300,
-  CANNOT_FIND_USER_BY_ID: 301,
+  MISSING_MEMBER_INTENT_FIND_USER_ID = 300,
+  CANNOT_FIND_USER_BY_ID = 301,
 
-  SERVER_MESSAGE_INTENT_REQUIRED: 400,
-  CHANNEL_PARTIAL_REQUIRED: 401,
-};
+  SERVER_MESSAGE_INTENT_REQUIRED = 400,
+  CHANNEL_PARTIAL_REQUIRED = 401,
+}
 
-function PrintError(type) {
+function PrintError(type: MsgType): void {
   const { format } = require('node:util');
   const { error, warn } = console;
 
@@ -279,7 +280,7 @@ function PrintError(type) {
   }
 }
 
-function GetActionErrorText(location, index, dataName) {
+function GetActionErrorText(location: string, index: number, dataName: string) {
   return (
     'Error with the ' +
     location +
@@ -288,24 +289,36 @@ function GetActionErrorText(location, index, dataName) {
 }
 
 namespace DBM.Bot {
-  const $slash = {}; // Slash commands
-  const $user = {}; // User commands
-  const $msge = {}; // Message commands
+  /** Slash commands */
+  const $slash: Object;
+  /** User commands */
+  const $user: Object;
+  /** Message commands */
+  const $msge: Object;
 
-  const $button = {}; // Button interactions
-  const $select = {}; // Select interactions
+  /** Button interactions */
+  const $button: Object;
+  /** Select interactions */
+  const $select: Object;
 
-  const $cmds = {}; // Normal commands
-  const $icds = []; // Includes word commands
-  const $regx = []; // Regular Expression commands
-  const $anym = []; // Any message commands
+  /** Normal commands */
+  const $cmds: Object;
+  /** Includes word commands */
+  const $icds: Array<any>;
+  /** Regular Expression commands */
+  const $regx: Array<any>;
+  /** Any message commands */
+  const $anym: Array<any>;
 
-  const $other = {}; // Manual commands
+  /** Manual commands */
+  const $other: Object;
 
-  const $evts = {}; // Events
+  /** Events */
+  const $evts: Object;
 
-  const bot = null;
-  const applicationCommandData = [];
+  /** @link [discord.js/Client](https://discord.js.org/#/docs/discord.js/13.11.0/class/Client) */
+  const bot: DiscordJS.Client;
+  const applicationCommandData: Array<any>;
 
   const PRIVILEGED_INTENTS =
     DiscordJS.Intents.FLAGS.GUILD_MEMBERS |
@@ -329,16 +342,16 @@ namespace DBM.Bot {
 
   const ALL_INTENTS = Bot.PRIVILEGED_INTENTS | Bot.NON_PRIVILEGED_INTENTS;
 
-  function  init() {
+  function init() {
     this.initBot();
     this.setupBot();
     this.reformatData();
     this.checkForCommandErrors();
     this.initEvents();
     this.login();
-  };
+  }
 
-  function  initBot() {
+  function initBot() {
     const options = this.makeClientOptions();
     options.intents = this.intents();
     if (this.usePartials()) {
@@ -349,29 +362,29 @@ namespace DBM.Bot {
     this.hasMessageContentIntents =
       (options.intents & DiscordJS.Intents.FLAGS.MESSAGE_CONTENT) !== 0;
     this.bot = new DiscordJS.Client(options);
-  };
+  }
 
-  function  makeClientOptions() {
+  function makeClientOptions(): Object {
     return {};
-  };
+  }
 
-  function  intents() {
-    return this.NON_PRIVILEGED_INTENTS;
-  };
+  function intents(): number {
+    return Bot.NON_PRIVILEGED_INTENTS;
+  }
 
-  function  usePartials() {
+  function usePartials() {
     return false;
-  };
+  }
 
-  function  partials() {
+  function partials(): Array<any> {
     return [];
-  };
+  }
 
-  function  setupBot() {
+  function setupBot() {
     this.on('raw', this.onRawData);
-  };
+  }
 
-  function  onRawData(packet) {
+  function onRawData(packet: any) {
     if (
       packet.t !== 'MESSAGE_REACTION_ADD' ||
       packet.t !== 'MESSAGE_REACTION_REMOVE'
@@ -405,14 +418,14 @@ namespace DBM.Bot {
         }
       })
       .catch(noop);
-  };
+  }
 
-  function  reformatData() {
+  function reformatData() {
     this.reformatCommands();
     this.reformatEvents();
-  };
+  }
 
-  function  reformatCommands() {
+  function reformatCommands() {
     const data = Files.data.commands;
     if (!data) return;
     this._hasTextCommands = false;
@@ -527,9 +540,9 @@ namespace DBM.Bot {
         }
       }
     }
-  };
+  }
 
-  function  createApiJsonFromCommand(com, name) {
+  function createApiJsonFromCommand(com: Object, name: string): { name: string, description: string } {
     const result = {
       name: name ?? com.name,
       description: this.generateSlashCommandDescription(com),
@@ -559,9 +572,9 @@ namespace DBM.Bot {
       );
     }
     return result;
-  };
+  }
 
-  function  mergeSubCommandIntoCommandData(names, data) {
+  function mergeSubCommandIntoCommandData(names: Array<string>, data: Object) {
     data.type = 'SUB_COMMAND';
 
     const baseName = names[0];
@@ -617,9 +630,9 @@ namespace DBM.Bot {
 
       baseGroup.options.push(data);
     }
-  };
+  }
 
-  function  validateSlashCommandName(name) {
+  function validateSlashCommandName(name: string): Array<string> | false {
     if (!name) {
       return false;
     }
@@ -630,9 +643,9 @@ namespace DBM.Bot {
       .filter((name) => typeof name === 'string');
 
     return names.length > 0 ? names : false;
-  };
+  }
 
-  function validateSlashCommandParameterName(name) {
+  function validateSlashCommandParameterName(name: string): string | false {
     if (!name) {
       return false;
     }
@@ -643,28 +656,28 @@ namespace DBM.Bot {
       return name.toLowerCase();
     }
     return false;
-  };
+  }
 
-  function generateSlashCommandDescription(com) {
+  function generateSlashCommandDescription(com: Object): string {
     const desc = com.description;
     if (com.comType !== '4') {
       return '';
     }
     return this.validateSlashCommandDescription(desc);
-  };
+  }
 
-  function validateSlashCommandDescription(desc) {
+  function validateSlashCommandDescription(desc: string): string {
     if (desc?.length > 100) {
       return desc.substring(0, 100);
     }
     return desc || this.getNoDescriptionText();
-  };
+  }
 
-  function getNoDescriptionText() {
+  function getNoDescriptionText(): string {
     return Files.data.settings.noDescriptionText ?? '(no description)';
-  };
+  }
 
-  function validateSlashCommandParameters(parameters, commandName) {
+  function validateSlashCommandParameters(parameters: Array<any>, commandName: string): Array<any> {
     const requireParams = [];
     const optionalParams = [];
     const existingNames = {};
@@ -701,7 +714,7 @@ namespace DBM.Bot {
       }
     }
     return requireParams.concat(optionalParams);
-  };
+  }
 
   function reformatEvents() {
     const data = Files.data.events;
@@ -715,9 +728,9 @@ namespace DBM.Bot {
         this.$evts[type].push(com);
       }
     }
-  };
+  }
 
-  function prepareActions(actions) {
+  function prepareActions(actions: Array<any>) {
     if (actions) {
       const customData = {};
       for (let i = 0; i < actions.length; i++) {
@@ -735,9 +748,9 @@ namespace DBM.Bot {
         actions._customData = customData;
       }
     }
-  };
+  }
 
-  function registerButtonInteraction(interactionId, data) {
+  function registerButtonInteraction(interactionId: string, data: Object) {
     if (interactionId) {
       if (!this.$button[interactionId]) {
         this.$button[interactionId] = data;
@@ -745,9 +758,9 @@ namespace DBM.Bot {
         PrintError(MsgType.DUPLICATE_BUTTON_ID, interactionId);
       }
     }
-  };
+  }
 
-  function registerSelectMenuInteraction(interactionId, data) {
+  function registerSelectMenuInteraction(interactionId: string, data: Object) {
     if (interactionId) {
       if (!this.$select[interactionId]) {
         this.$select[interactionId] = data;
@@ -755,7 +768,7 @@ namespace DBM.Bot {
         PrintError(MsgType.DUPLICATE_SELECT_ID, interactionId);
       }
     }
-  };
+  }
 
   function checkForCommandErrors() {
     if (this._textCommandCount > 0 && !this.hasMessageContentIntents) {
@@ -770,7 +783,7 @@ namespace DBM.Bot {
     ) {
       PrintError(MsgType.CHANNEL_PARTIAL_REQUIRED, this._dmTextCommandCount);
     }
-  };
+  }
 
   function initEvents() {
     this.bot.on('ready', this.onReady.bind(this));
@@ -778,11 +791,11 @@ namespace DBM.Bot {
     this.bot.on('messageCreate', this.onMessage.bind(this));
     this.bot.on('interactionCreate', this.onInteraction.bind(this));
     Events.registerEvents(this.bot);
-  };
+  }
 
   function login() {
     this.bot.login(Files.data.settings.token);
-  };
+  }
 
   function onReady() {
     process.send?.('BotReady');
@@ -790,12 +803,12 @@ namespace DBM.Bot {
     this.restoreVariables();
     this.registerApplicationCommands();
     this.preformInitialization();
-  };
+  }
 
   function restoreVariables() {
     Files.restoreServerVariables();
     Files.restoreGlobalVariables();
-  };
+  }
 
   function registerApplicationCommands() {
     let slashType = Files.data.settings.slashType ?? 'auto';
@@ -841,13 +854,15 @@ namespace DBM.Bot {
         break;
       }
     }
-  };
+  }
 
-  function onServerJoin(guild) {
+  /** @link [discord.js/Guild](https://discord.js.org/#/docs/discord.js/13.11.0/class/Guild) */
+  function onServerJoin(guild: DiscordJS.Guild) {
     this.initializeCommandsForNewServer(guild);
-  };
+  }
 
-  function initializeCommandsForNewServer(guild) {
+  /** @link [discord.js/Guild](https://discord.js.org/#/docs/discord.js/13.11.0/class/Guild) */
+  function initializeCommandsForNewServer(guild: DiscordJS.Guild) {
     switch (this._slashCommandCreateType) {
       case 'all':
       case 'manual':
@@ -861,26 +876,27 @@ namespace DBM.Bot {
         break;
       }
     }
-  };
+  }
 
   function shouldPrintAnyMissingAccessError() {
     return !(Files.data.settings.ignoreCommandScopeErrors ?? false);
-  };
+  }
 
-  function clearUnspecifiedServerCommands() {
+  function clearUnspecifiedServerCommands(): boolean {
     return Files.data.settings.clearUnlistedServers ?? false;
-  };
+  }
 
-  function setGlobalCommands(commands) {
+  function setGlobalCommands(commands: Object) {
     this.bot.application?.commands
       ?.set?.(commands)
       .then(function () {})
       .catch(function (err) {
         console.error(err);
       });
-  };
+  }
 
-  function setCommandsForServer(guild, commands, printMissingAccessError) {
+  /** @link [discord.js/Guild](https://discord.js.org/#/docs/discord.js/13.11.0/class/Guild) */
+  function setCommandsForServer(guild: DiscordJS.Guild, commands: Object, printMissingAccessError: boolean) {
     if (guild?.commands?.set) {
       guild.commands
         .set(commands)
@@ -902,9 +918,9 @@ namespace DBM.Bot {
           }
         });
     }
-  };
+  }
 
-  function setAllServerCommands(commands, printMissingAccessError = true) {
+  function setAllServerCommands(commands: Object, printMissingAccessError: boolean = true) {
     this.bot.guilds.cache.forEach((key, value) => {
       this.bot.guilds
         .fetch(key)
@@ -915,9 +931,9 @@ namespace DBM.Bot {
           console.error(err);
         });
     });
-  };
+  }
 
-  function setCertainServerCommands(commands, serverIdList) {
+  function setCertainServerCommands(commands: Object, serverIdList: Array<string>) {
     if (this.clearUnspecifiedServerCommands()) {
       this.bot.guilds.cache.forEach((key, value) => {
         this.bot.guilds
@@ -948,7 +964,7 @@ namespace DBM.Bot {
           });
       }
     }
-  };
+  }
 
   function preformInitialization() {
     const bot = this.bot;
@@ -961,9 +977,10 @@ namespace DBM.Bot {
     if (this.$evts['3']) {
       Events.setupIntervals(bot);
     }
-  };
+  }
 
-  function onMessage(msg) {
+  /** @link [discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message) */
+  function onMessage(msg: DiscordJS.Message) {
     if (msg.author.bot) return;
     try {
       if (!this.checkCommand(msg)) {
@@ -972,9 +989,10 @@ namespace DBM.Bot {
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 
-  function checkCommand(msg) {
+  /** @link [discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message) */
+  function checkCommand(msg: DiscordJS.Message) {
     if (!this._hasTextCommands) return false;
     let command = this.checkTag(msg.content);
     if (!command) return false;
@@ -987,27 +1005,27 @@ namespace DBM.Bot {
       return true;
     }
     return false;
-  };
+  }
 
-  function escapeRegExp(text) {
+  function escapeRegExp(text: string): string {
     return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-  };
+  }
 
-  function generateTagRegex(tag, allowPrefixSpace) {
+  function generateTagRegex(tag: string, allowPrefixSpace: boolean) {
     return new RegExp(
       `^${this.escapeRegExp(tag)}${allowPrefixSpace ? '\\s*' : ''}`
     );
-  };
+  }
 
-  function populateTagRegex() {
+  function populateTagRegex(): RegExp | void {
     if (this.tagRegex) return;
     const tag = Files.data.settings.tag;
     const allowPrefixSpace = Files.data.settings.allowPrefixSpace === 'true';
     this.tagRegex = this.generateTagRegex(tag, allowPrefixSpace);
     return this.tagRegex;
-  };
+  }
 
-  function checkTag(content) {
+  function checkTag(content: string): string | null {
     const allowPrefixSpace = Files.data.settings.allowPrefixSpace === 'true';
     const tag = Files.data.settings.tag;
     this.populateTagRegex();
@@ -1022,9 +1040,10 @@ namespace DBM.Bot {
       }
     }
     return null;
-  };
+  }
 
-  function onAnyMessage(msg) {
+  /** @link [discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message) */
+  function onAnyMessage(msg: DiscordJS.Message) {
     this.checkIncludes(msg);
     this.checkRegExps(msg);
     if (!msg.author.bot) {
@@ -1038,9 +1057,10 @@ namespace DBM.Bot {
         }
       }
     }
-  };
+  }
 
-  function checkIncludes(msg) {
+  /** @link [discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message) */
+  function checkIncludes(msg: DiscordJS.Message) {
     const text = msg.content;
     if (!text) return;
     const icds = this.$icds;
@@ -1056,9 +1076,10 @@ namespace DBM.Bot {
         Actions.preformActionsFromMessage(msg, icds[i]);
       }
     }
-  };
+  }
 
-  function checkRegExps(msg) {
+  /** @link [discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message) */
+  function checkRegExps(msg: DiscordJS.Message) {
     const text = msg.content;
     if (!text) return;
     const regx = this.$regx;
@@ -1079,9 +1100,10 @@ namespace DBM.Bot {
         }
       }
     }
-  };
+  }
 
-  function onInteraction(interaction) {
+  /** @link [discord.js/Interaction](https://discord.js.org/#/docs/discord.js/13.11.0/class/Interaction) */
+  function onInteraction(interaction: DiscordJS.Interaction) {
     if (interaction.isCommand()) {
       this.onSlashCommandInteraction(interaction);
     } else if (interaction.isContextMenu()) {
@@ -1102,9 +1124,10 @@ namespace DBM.Bot {
         }
       }
     }
-  };
+  }
 
-  function onSlashCommandInteraction(interaction) {
+  /** @link [discord.js/CommandInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/CommandInteraction) */
+  function onSlashCommandInteraction(interaction: DiscordJS.CommandInteraction) {
     let interactionName = interaction.commandName;
 
     const group = interaction.options.getSubcommandGroup(false);
@@ -1124,17 +1147,19 @@ namespace DBM.Bot {
         true
       );
     }
-  };
+  }
 
-  function onContextMenuInteraction(interaction) {
+  /** @link [discord.js/ContextMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/ContextMenuInteraction) */
+  function onContextMenuInteraction(interaction: DiscordJS.ContextMenuInteraction) {
     if (interaction.isUserContextMenu()) {
       this.onUserContextMenuInteraction(interaction);
     } else if (interaction.isMessageContextMenu()) {
       this.onMessageContextMenuInteraction(interaction);
     }
-  };
+  }
 
-  function onUserContextMenuInteraction(interaction) {
+  /** @link [discord.js/UserContextMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/UserContextMenuInteraction) */
+  function onUserContextMenuInteraction(interaction: DiscordJS.UserContextMenuInteraction) {
     const interactionName = interaction.commandName;
     if (this.$user[interactionName]) {
       if (interaction.guild) {
@@ -1158,9 +1183,10 @@ namespace DBM.Bot {
         );
       }
     }
-  };
+  }
 
-  function onMessageContextMenuInteraction(interaction) {
+  /** @link [discord.js/MessageContextMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/MessageContextMenuInteraction) */
+  function onMessageContextMenuInteraction(interaction: DiscordJS.MessageContextMenuInteraction) {
     const interactionName = interaction.commandName;
     if (this.$msge[interactionName]) {
       const msg = interaction.targetMessage;
@@ -1185,9 +1211,10 @@ namespace DBM.Bot {
         );
       }
     }
-  };
+  }
 
-  function onButtonInteraction(interaction) {
+  /** @link [discord.js/ButtonInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/ButtonInteraction) */
+  function onButtonInteraction(interaction: DiscordJS.ButtonInteraction) {
     const interactionId = interaction.customId;
     if (this.$button[interactionId]) {
       Actions.preformActionsFromInteraction(
@@ -1200,9 +1227,10 @@ namespace DBM.Bot {
         interaction.reply({ content: response, ephemeral: true });
       }
     }
-  };
+  }
 
-  function onSelectMenuInteraction(interaction): void {
+  /** @link [discord.js/SelectMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/SelectMenuInteraction) */
+  function onSelectMenuInteraction(interaction: DiscordJS.SelectMenuInteraction) {
     const interactionId = interaction.customId;
     if (this.$select[interactionId]) {
       Actions.preformActionsFromSelectInteraction(
@@ -1215,7 +1243,7 @@ namespace DBM.Bot {
         interaction.reply({ content: response, ephemeral: true });
       }
     }
-  };
+  }
 }
 
 namespace DBM.Actions {
@@ -1320,20 +1348,20 @@ namespace DBM.Actions {
         meta: other.meta,
       });
     }
-  };
+  }
 
   function exists(action) {
     if (!action) return false;
     return typeof this[action] === 'function';
-  };
+  }
 
   function getLocalFile(url) {
     return require('node:path').join(process.cwd(), url);
-  };
+  }
 
   function getDBM() {
     return DBM;
-  };
+  }
 
   function callListFunc(list, funcName, args) {
     return new Promise((resolve) => {
@@ -1353,14 +1381,14 @@ namespace DBM.Actions {
       }
       callItem();
     });
-  };
+  }
 
   function getActionVariable(name, defaultValue) {
     if (this[name] === undefined && defaultValue !== undefined) {
       this[name] = defaultValue;
     }
     return this[name];
-  };
+  }
 
   function getSlashParameter(interaction, name, defaultValue) {
     if (!interaction) {
@@ -1383,14 +1411,14 @@ namespace DBM.Actions {
     }
 
     return defaultValue !== undefined ? defaultValue : result;
-  };
+  }
 
   const _letterEmojis =
     '🇦 🇧 🇨 🇩 🇪 🇫 🇬 🇭 🇮 🇯 🇰 🇱 🇲 🇳 🇴 🇵 🇶 🇷 🇸 🇹 🇺 🇻 🇼 🇽 🇾 🇿'.split(
       ' '
     );
 
-    function convertTextToEmojis(text, useRegional = true) {
+  function convertTextToEmojis(text, useRegional = true) {
     let result = '';
     for (let i = 0; i < text.length; i++) {
       const code = text.toUpperCase().charCodeAt(i) - 65;
@@ -1403,7 +1431,7 @@ namespace DBM.Actions {
       }
     }
     return result;
-  };
+  }
 
   function getFlagEmoji(flagName) {
     if (flagName.startsWith('flag_')) {
@@ -1414,14 +1442,14 @@ namespace DBM.Actions {
       this._letterEmojis[flagName.charCodeAt(0) - 65] +
       this._letterEmojis[flagName.charCodeAt(1) - 65]
     );
-  };
+  }
 
   function getCustomEmoji(nameOrId) {
     return (
       Bot.bot.emojis.cache.get(nameOrId) ??
       Bot.bot.emojis.cache.find((e) => e.name === nameOrId)
     );
-  };
+  }
 
   function eval(content, cache, logError = true) {
     if (!content) return false;
@@ -1474,13 +1502,13 @@ namespace DBM.Actions {
       if (logError) console.error(e);
       return false;
     }
-  };
+  }
 
   function evalMessage(content, cache) {
     if (!content) return '';
     if (!content.match(/\$\{.*\}/im)) return content;
     return this.eval('`' + content.replace(/`/g, '\\`') + '`', cache);
-  };
+  }
 
   function evalIfPossible(content, cache) {
     this.__cachedText ??= {};
@@ -1492,7 +1520,7 @@ namespace DBM.Actions {
       result = content;
     }
     return result;
-  };
+  }
 
   function initMods() {
     this.modInitReferences = {};
@@ -1517,7 +1545,7 @@ namespace DBM.Actions {
         }
       });
     });
-  };
+  }
 
   function modDirectories() {
     const result = [this.actionsLocation];
@@ -1528,7 +1556,7 @@ namespace DBM.Actions {
       result.push(this.extensionsLocation);
     }
     return result;
-  };
+  }
 
   function preformActionsFromMessage(msg, cmd) {
     if (
@@ -1537,7 +1565,7 @@ namespace DBM.Actions {
     ) {
       this.invokeActions(msg, cmd.actions, cmd);
     }
-  };
+  }
 
   function preformActionsFromInteraction(
     interaction,
@@ -1579,7 +1607,7 @@ namespace DBM.Actions {
     } else if (invalidPermissions) {
       interaction.reply({ content: invalidPermissions, ephemeral: true });
     }
-  };
+  }
 
   function preformActionsFromSelectInteraction(
     interaction,
@@ -1598,7 +1626,7 @@ namespace DBM.Actions {
           : values;
     }
     this.preformActionsFromInteraction(interaction, select, meta, tempVars);
-  };
+  }
 
   function checkConditions(guild, member, user, cmd) {
     const isServer = Boolean(guild && member);
@@ -1625,7 +1653,7 @@ namespace DBM.Actions {
       default:
         return true;
     }
-  };
+  }
 
   function checkTimeRestriction(
     user,
@@ -1666,7 +1694,7 @@ namespace DBM.Actions {
         return returnTimeString ? timeString : false;
       }
     }
-  };
+  }
 
   function generateTimeString(milliseconds) {
     let remaining = milliseconds;
@@ -1705,7 +1733,7 @@ namespace DBM.Actions {
         times[0] + ', ' + times[1] + ', ' + times[2] + ', and ' + times[3];
     }
     return result;
-  };
+  }
 
   function checkPermissions(member, permissions) {
     if (!permissions) return true;
@@ -1713,7 +1741,7 @@ namespace DBM.Actions {
     if (permissions === 'NONE') return true;
     if (member.guild?.ownerId === member.id) return true;
     return member.permissions.has(permissions);
-  };
+  }
 
   function invokeActions(msg, actions, cmd = null) {
     if (actions.length > 0) {
@@ -1727,7 +1755,7 @@ namespace DBM.Actions {
         })
       );
     }
-  };
+  }
 
   function invokeInteraction(
     interaction,
@@ -1747,7 +1775,7 @@ namespace DBM.Actions {
     }
     const cache = new ActionsCache(actions, interaction.guild, cacheData);
     this.callNextAction(cache);
-  };
+  }
 
   function invokeEvent(event, server, temp) {
     const actions = event.actions;
@@ -1761,7 +1789,7 @@ namespace DBM.Actions {
       });
       this.callNextAction(cache);
     }
-  };
+  }
 
   function callNextAction(cache) {
     cache.index++;
@@ -1782,57 +1810,57 @@ namespace DBM.Actions {
       PrintError(MsgType.MISSING_ACTION, act.name);
       this.callNextAction(cache);
     }
-  };
+  }
 
   function endActions(cache) {
     cache.callback?.();
     cache.onCompleted?.();
-  };
+  }
 
   function getInvalidButtonResponseText() {
     return (
       Files.data.settings.invalidButtonText ??
       'Button response no longer valid.'
     );
-  };
+  }
 
   function getInvalidSelectResponseText() {
     return (
       Files.data.settings.invalidSelectText ??
       'Select menu response no longer valid.'
     );
-  };
+  }
 
   function getDefaultResponseText() {
     return Files.data.settings.autoResponseText ?? 'Command successfully run!';
-  };
+  }
 
   function getInvalidPermissionsResponse() {
     return Files.data.settings.invalidPermissionsText ?? 'Invalid permissions!';
-  };
+  }
 
   function getInvalidUserResponse() {
     return Files.data.settings.invalidUserText ?? 'Invalid user!';
-  };
+  }
 
   function getInvalidCooldownResponse() {
     return (
       Files.data.settings.invalidCooldownText ??
       'Must wait %s before using this action.'
     );
-  };
+  }
 
   function getErrorString(data, cache) {
     const location = cache.toString();
     return GetActionErrorText(location, cache.index + 1, data?.name);
-  };
+  }
 
   function displayError(data, cache, err) {
     if (!data) data = cache.actions[cache.index];
     const dbm = this.getErrorString(data, cache);
     console.error(dbm + ':\n' + (err.stack ?? err));
     Events.onError(dbm, err.stack ?? err, cache);
-  };
+  }
 
   function getParameterFromInteraction(interaction, name) {
     if (interaction.__originalInteraction) {
@@ -1849,7 +1877,7 @@ namespace DBM.Actions {
       return this.getParameterFromParameterData(option);
     }
     return null;
-  };
+  }
 
   function getParameterFromParameterData(option) {
     if (typeof option === 'object') {
@@ -1878,7 +1906,7 @@ namespace DBM.Actions {
       }
     }
     return null;
-  };
+  }
 
   async function findMemberOrUserFromName(name, server) {
     if (!Bot.hasMemberIntents) {
@@ -1898,7 +1926,7 @@ namespace DBM.Actions {
       }
     }
     return null;
-  };
+  }
 
   async function findMemberOrUserFromID(id, server) {
     if (!Bot.hasMemberIntents) {
@@ -1913,7 +1941,7 @@ namespace DBM.Actions {
       PrintError(MsgType.CANNOT_FIND_USER_BY_ID, id);
     }
     return null;
-  };
+  }
 
   function getTargetFromVariableOrParameter(varType, varName, cache) {
     switch (varType) {
@@ -1938,7 +1966,7 @@ namespace DBM.Actions {
         break;
     }
     return null;
-  };
+  }
 
   async function getSendTargetFromData(typeData, varNameData, cache) {
     return await this.getSendTarget(
@@ -1946,7 +1974,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getSendTarget(type, varName, cache) {
     const { interaction, msg, server } = cache;
@@ -2050,7 +2078,7 @@ namespace DBM.Actions {
         return this.getTargetFromVariableOrParameter(type - 5, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getSendReplyTarget(type, varName, cache) {
     const { interaction, msg, server } = cache;
@@ -2065,7 +2093,7 @@ namespace DBM.Actions {
         return await this.getSendTarget(type, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getMemberFromData(typeData, varNameData, cache) {
     return await this.getMember(
@@ -2073,7 +2101,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getMember(type, varName, cache) {
     const { interaction, msg } = cache;
@@ -2124,7 +2152,7 @@ namespace DBM.Actions {
         return this.getTargetFromVariableOrParameter(type - 2, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getMessageFromData(typeData, varNameData, cache) {
     return await this.getMessage(
@@ -2132,7 +2160,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getMessage(type, varName, cache) {
     switch (type) {
@@ -2146,7 +2174,7 @@ namespace DBM.Actions {
         return this.getTargetFromVariableOrParameter(type - 1, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getServerFromData(typeData, varNameData, cache) {
     return await this.getServer(
@@ -2154,7 +2182,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getServer(type, varName, cache) {
     const server = cache.server;
@@ -2186,7 +2214,7 @@ namespace DBM.Actions {
         return this.getTargetFromVariableOrParameter(type - 1, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getRoleFromData(typeData, varNameData, cache) {
     return await this.getRole(
@@ -2194,7 +2222,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getRole(type, varName, cache) {
     const { interaction, msg, server } = cache;
@@ -2246,7 +2274,7 @@ namespace DBM.Actions {
         return this.getTargetFromVariableOrParameter(type - 3, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getChannelFromData(typeData, varNameData, cache) {
     return await this.getChannel(
@@ -2254,7 +2282,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getChannel(type, varName, cache) {
     const { interaction, msg, server } = cache;
@@ -2316,7 +2344,7 @@ namespace DBM.Actions {
         return this.getTargetFromVariableOrParameter(type - 3, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getVoiceChannelFromData(typeData, varNameData, cache) {
     return await this.getVoiceChannel(
@@ -2324,7 +2352,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getVoiceChannel(type, varName, cache) {
     const { interaction, msg, server } = cache;
@@ -2379,7 +2407,7 @@ namespace DBM.Actions {
         return this.getTargetFromVariableOrParameter(type - 3, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getAnyChannel(type, varName, cache) {
     switch (type) {
@@ -2395,7 +2423,7 @@ namespace DBM.Actions {
         return await this.getChannel(type, varName, cache);
     }
     return null;
-  };
+  }
 
   async function getListFromData(typeData, varNameData, cache) {
     return await this.getList(
@@ -2403,7 +2431,7 @@ namespace DBM.Actions {
       this.evalMessage(varNameData, cache),
       cache
     );
-  };
+  }
 
   async function getList(type, varName, cache) {
     const { interaction, msg, server } = cache;
@@ -2448,11 +2476,11 @@ namespace DBM.Actions {
       default:
         return this.getTargetFromVariableOrParameter(type - 7, varName, cache);
     }
-  };
+  }
 
   function getVariable(type, varName, cache) {
     return this.getTargetFromVariableOrParameter(type - 1, varName, cache);
-  };
+  }
 
   function storeValue(value, type, varName, cache) {
     const server = cache.server;
@@ -2472,7 +2500,7 @@ namespace DBM.Actions {
       default:
         break;
     }
-  };
+  }
 
   function executeResults(result, data, cache) {
     const type = parseInt(result ? data.iftrue : data.iffalse, 10);
@@ -2527,13 +2555,13 @@ namespace DBM.Actions {
       default:
         break;
     }
-  };
+  }
 
   function executeSubActionsThenNextAction(actions, cache) {
     return this.executeSubActions(actions, cache, () =>
       this.callNextAction(cache)
     );
-  };
+  }
 
   function executeSubActions(actions, cache, callback = null) {
     if (!actions) {
@@ -2544,11 +2572,11 @@ namespace DBM.Actions {
     newCache.callback = () => callback?.();
     this.callNextAction(newCache);
     return true;
-  };
+  }
 
   function generateSubCache(cache, actions) {
     return ActionsCache.extend(cache, actions);
-  };
+  }
 
   function generateButton(button, cache) {
     const style = button.url ? 'LINK' : button.type;
@@ -2566,7 +2594,7 @@ namespace DBM.Actions {
       buttonData.emoji = this.evalMessage(button.emoji, cache);
     }
     return buttonData;
-  };
+  }
 
   function generateSelectMenu(select, cache) {
     const selectData = {
@@ -2584,7 +2612,7 @@ namespace DBM.Actions {
       }),
     };
     return selectData;
-  };
+  }
 
   function generateTextInput(textInput, defaultCustomId, cache) {
     const inputTextData = {
@@ -2600,7 +2628,7 @@ namespace DBM.Actions {
       required: textInput.required === 'true',
     };
     return inputTextData;
-  };
+  }
 
   function addButtonToActionRowArray(array, rowText, buttonData, cache) {
     let row = 0;
@@ -2640,7 +2668,7 @@ namespace DBM.Actions {
     } else {
       this.displayError(null, cache, 'Invalid action row: "' + rowText + '".');
     }
-  };
+  }
 
   function addSelectToActionRowArray(array, rowText, selectData, cache) {
     let row = 0;
@@ -2670,7 +2698,7 @@ namespace DBM.Actions {
     } else {
       this.displayError(null, cache, `Invalid action row: '${rowText}'.`);
     }
-  };
+  }
 
   function addTextInputToActionRowArray(array, rowText, textInput, cache) {
     let row = 0;
@@ -2700,7 +2728,7 @@ namespace DBM.Actions {
     } else {
       this.displayError(null, cache, `Invalid action row: '${rowText}'.`);
     }
-  };
+  }
 
   function checkTemporaryInteractionResponses(interaction) {
     const customId = interaction.customId;
@@ -2725,7 +2753,7 @@ namespace DBM.Actions {
       }
     }
     return false;
-  };
+  }
 
   function registerTemporaryInteraction(
     messageId,
@@ -2764,7 +2792,7 @@ namespace DBM.Actions {
     if (time > 0) {
       require('node:timers').setTimeout(removeInteraction, time).unref();
     }
-  };
+  }
 
   function removeTemporaryInteraction(messageId, uniqueOrCustomId) {
     const interactions = this._temporaryInteractions?.[messageId];
@@ -2781,20 +2809,20 @@ namespace DBM.Actions {
       }
       if (i < interactions.length) interactions.splice(i, 1);
     }
-  };
+  }
 
   function clearTemporaryInteraction(messageId, customId) {
     if (this._temporaryInteractions?.[messageId]) {
       this.removeTemporaryInteraction(messageId, customId);
     }
-  };
+  }
 
   function clearAllTemporaryInteractions(messageId) {
     if (this._temporaryInteractions?.[messageId]) {
       this._temporaryInteractions[messageId] = null;
       delete this._temporaryInteractions[messageId];
     }
-  };
+  }
 
   function registerModalSubmitResponses(interactionId, callback) {
     this._temporaryInteractions ??= {};
@@ -2806,7 +2834,7 @@ namespace DBM.Actions {
         this.clearAllTemporaryInteractions(interactionId);
       }, 60 * 60 * 1000)
       .unref();
-  };
+  }
 
   function checkModalSubmitResponses(interaction) {
     const interactionId = interaction.customId;
@@ -2814,7 +2842,7 @@ namespace DBM.Actions {
       this._temporaryInteractions[interactionId](interaction);
       this.clearAllTemporaryInteractions(interactionId);
     }
-  };
+  }
 }
 
 namespace DBM.Events {
@@ -2884,7 +2912,7 @@ namespace DBM.Events {
       ['threadMemberUpdate', 1, 3, 100, true],
       [],
     ];
-  };
+  }
 
   const data = Events.generateData();
 
@@ -2904,7 +2932,7 @@ namespace DBM.Events {
     if ($evts['29'])
       bot.on('messageReactionRemove', this.onReaction.bind(this, '29'));
     if ($evts['34']) bot.on('typingStart', this.onTyping.bind(this, '34'));
-  };
+  }
 
   function callEvents(
     id,
@@ -2928,7 +2956,7 @@ namespace DBM.Events {
       if (event.temp2) temp[event.temp2] = this.getObject(temp2, arg1, arg2);
       Actions.invokeEvent(event, this.getObject(server, arg1, arg2), temp);
     }
-  };
+  }
 
   function getObject(id, arg1, arg2) {
     switch (id) {
@@ -2945,7 +2973,7 @@ namespace DBM.Events {
       case 200:
         return arg1.user;
     }
-  };
+  }
 
   function onInitialization(bot) {
     const events = $evts['1'];
@@ -2955,7 +2983,7 @@ namespace DBM.Events {
         Actions.invokeEvent(event, server, {});
       }
     }
-  };
+  }
 
   function onInitializationOnce(bot) {
     const events = $evts['48'];
@@ -2963,7 +2991,7 @@ namespace DBM.Events {
     for (let i = 0; i < events.length; i++) {
       Actions.invokeEvent(events[i], server, {});
     }
-  };
+  }
 
   function setupIntervals(bot) {
     const events = $evts['3'];
@@ -2976,7 +3004,7 @@ namespace DBM.Events {
         }
       }, time * 1e3).unref();
     }
-  };
+  }
 
   function onReaction(id, reaction, user) {
     const events = $evts[id];
@@ -2991,7 +3019,7 @@ namespace DBM.Events {
       if (event.temp2) temp[event.temp2] = member;
       Actions.invokeEvent(event, server, temp);
     }
-  };
+  }
 
   function onTyping(id, channel, user) {
     const events = $evts[id];
@@ -3006,7 +3034,7 @@ namespace DBM.Events {
       if (event.temp2) temp[event.temp2] = member;
       Actions.invokeEvent(event, server, temp);
     }
-  };
+  }
 
   function onError(text, text2, cache) {
     const events = $evts['37'];
@@ -3018,7 +3046,7 @@ namespace DBM.Events {
       if (event.temp2) temp[event.temp2] = text2;
       Actions.invokeEvent(event, cache.server, temp);
     }
-  };
+  }
 }
 
 namespace DBM.Images {
@@ -3030,18 +3058,18 @@ namespace DBM.Images {
   function getImage(url) {
     if (!url.startsWith('http')) url = Actions.getLocalFile(url);
     return this.JIMP.read(url);
-  };
+  }
 
   function getFont(url) {
     return this.JIMP.loadFont(Actions.getLocalFile(url));
-  };
+  }
 
   function isImage(obj) {
     if (!Images.JIMP) {
       return false;
     }
     return obj instanceof Images.JIMP;
-  };
+  }
 
   function createBuffer(image) {
     return new Promise((resolve, reject) => {
@@ -3053,7 +3081,7 @@ namespace DBM.Images {
         }
       });
     });
-  };
+  }
 
   function drawImageOnImage(img1, img2, x, y) {
     for (let i = 0; i < img2.bitmap.width; i++) {
@@ -3067,7 +3095,7 @@ namespace DBM.Images {
         }
       }
     }
-  };
+  }
 }
 
 namespace DBM.Files {
@@ -3096,11 +3124,11 @@ namespace DBM.Files {
     } else {
       PrintError(MsgType.MISSING_ACTIONS, Actions.actionsLocation);
     }
-  };
+  }
 
   function verifyDirectory(dir) {
     return typeof dir === 'string' && require('node:fs').existsSync(dir);
-  };
+  }
 
   function readData(callback) {
     const fs = require('node:fs');
@@ -3135,7 +3163,7 @@ namespace DBM.Files {
         });
       }
     }
-  };
+  }
 
   function saveData(file, callback) {
     const path = require('node:path');
@@ -3149,7 +3177,7 @@ namespace DBM.Files {
     this.writers[file].write(this.encrypt(JSON.stringify(data)), () =>
       callback?.()
     );
-  };
+  }
 
   function initEncryption() {
     try {
@@ -3157,19 +3185,19 @@ namespace DBM.Files {
     } catch {
       this.password = '';
     }
-  };
+  }
 
   function encrypt(text) {
     if (this.password.length === 0) return text;
     const cipher = this.crypto.createCipher('aes-128-ofb', this.password);
     return cipher.update(text, 'utf8', 'hex') + cipher.final('hex');
-  };
+  }
 
   function decrypt(text) {
     if (this.password.length === 0) return text;
     const decipher = this.crypto.createDecipher('aes-128-ofb', this.password);
     return decipher.update(text, 'hex', 'utf8') + decipher.final('utf8');
-  };
+  }
 
   function convertItem(item) {
     if (Array.isArray(item)) {
@@ -3191,7 +3219,7 @@ namespace DBM.Files {
       return item.convertToString();
     }
     return null;
-  };
+  }
 
   function saveServerVariable(serverId, varName, item) {
     this.data.serverVars[serverId] ??= {};
@@ -3200,7 +3228,7 @@ namespace DBM.Files {
       this.data.serverVars[serverId][varName] = strItem;
     }
     this.saveData('serverVars');
-  };
+  }
 
   function restoreServerVariables() {
     const keys = Object.keys(this.data.serverVars);
@@ -3215,7 +3243,7 @@ namespace DBM.Files {
         );
       }
     }
-  };
+  }
 
   function saveGlobalVariable(varName, item) {
     const strItem = this.convertItem(item);
@@ -3223,14 +3251,14 @@ namespace DBM.Files {
       this.data.globalVars[varName] = strItem;
     }
     this.saveData('globalVars');
-  };
+  }
 
   function restoreGlobalVariables() {
     const keys = Object.keys(this.data.globalVars);
     for (let i = 0; i < keys.length; i++) {
       this.restoreVariable(this.data.globalVars[keys[i]], 3, keys[i]);
     }
-  };
+  }
 
   function restoreVariable(value, type, varName, serverId) {
     const cache = {};
@@ -3248,7 +3276,7 @@ namespace DBM.Files {
     } else {
       Actions.storeValue(value, type, varName, cache);
     }
-  };
+  }
 
   function restoreValue(value, bot) {
     return new Promise((resolve, reject) => {
@@ -3293,7 +3321,7 @@ namespace DBM.Files {
         resolve(value);
       }
     });
-  };
+  }
 
   function restoreMember(value, bot) {
     const split = value.split('_');
@@ -3304,7 +3332,7 @@ namespace DBM.Files {
       return server.members.resolve(memId);
     }
     return null;
-  };
+  }
 
   function restoreMessage(value, bot) {
     const split = value.split('_');
@@ -3315,17 +3343,17 @@ namespace DBM.Files {
       return channel.messages.fetch(msgId);
     }
     return null;
-  };
+  }
 
   function restoreTextChannel(value, bot) {
     const channelId = value.slice(3);
     return bot.channels.resolve(channelId);
-  };
+  }
 
   function restoreVoiceChannel(value, bot) {
     const channelId = value.slice(3);
     return bot.channels.resolve(channelId);
-  };
+  }
 
   function restoreRole(value, bot) {
     const split = value.split('_');
@@ -3336,22 +3364,22 @@ namespace DBM.Files {
       return server.roles.resolve(roleId);
     }
     return null;
-  };
+  }
 
   function restoreServer(value, bot) {
     const serverId = value.slice(2);
     return bot.guilds.resolve(serverId);
-  };
+  }
 
   function restoreEmoji(value, bot) {
     const emojiId = value.slice(2);
     return bot.emojis.resolve(emojiId);
-  };
+  }
 
   function restoreUser(value, bot) {
     const userId = value.slice(4);
     return bot.users.resolve(userId);
-  };
+  }
 }
 
 namespace DBM.Audio {
@@ -3370,7 +3398,7 @@ namespace DBM.Audio {
       return !!Audio.packageJson[key];
     }
     return false;
-  };
+  }
 
   const ytdl = null;
   try {
@@ -3558,7 +3586,7 @@ namespace DBM.Audio {
         return this.processQueue();
       }
     }
-  };
+  }
 
   class Track {
     /**
@@ -3621,7 +3649,7 @@ namespace DBM.Audio {
       }
       return new Audio.Track({ title: info?.videoDetails?.title ?? '', url });
     }
-  };
+  }
 
   class BasicTrack {
     /**
@@ -3638,7 +3666,7 @@ namespace DBM.Audio {
         inputType: Audio.voice.StreamType.Arbitrary,
       });
     }
-  };
+  }
 
   const subscriptions = new Map();
 
@@ -3679,7 +3707,7 @@ namespace DBM.Audio {
     this.subscriptions.set(voiceChannel.guildId, subscription);
 
     return subscription;
-  };
+  }
 
   function getSubscription(guild) {
     const subscription = this.subscriptions.get(guild?.id);
@@ -3690,7 +3718,7 @@ namespace DBM.Audio {
       }
     }
     return subscription;
-  };
+  }
 
   function disconnectFromVoice(guild) {
     if (!guild) return;
@@ -3698,7 +3726,7 @@ namespace DBM.Audio {
     if (!subscription) return;
     subscription.voiceConnection.destroy();
     this.subscriptions.delete(guild?.id);
-  };
+  }
 
   function setVolume(volume, guild) {
     if (Audio.inlineVolume === false)
@@ -3713,7 +3741,7 @@ namespace DBM.Audio {
     ) {
       subscription.audioPlayer.state.resource.volume.volume = volume;
     }
-  };
+  }
 
   async function addAudio(info, guild, isQueue) {
     if (!guild) return;
@@ -3722,7 +3750,7 @@ namespace DBM.Audio {
     } else {
       Audio.playImmediately(info, guild);
     }
-  };
+  }
 
   async function addToQueue([type, options, url], guild) {
     if (!guild) return;
@@ -3742,7 +3770,7 @@ namespace DBM.Audio {
     if (track !== null) {
       subscription.enqueue(track);
     }
-  };
+  }
 
   async function playImmediately([type, options, url], guild) {
     if (!guild) return;
@@ -3762,14 +3790,14 @@ namespace DBM.Audio {
       subscription.enqueue(track, true);
     }
     subscription.audioPlayer.stop(true);
-  };
+  }
 
   function clearQueue(cache) {
     if (!cache.server) return;
     const subscription = this.getSubscription(cache.server);
     if (!subscription) return;
     subscription.queue = [];
-  };
+  }
 
   function getTrack(url, type) {
     switch (type) {
@@ -3780,5 +3808,5 @@ namespace DBM.Audio {
       case 'yt':
         return this.Track.from(url);
     }
-  };
+  }
 }

@@ -7,6 +7,12 @@ custom_edit_url: null
 
 [DBM](DBM.md).Images
 
+## Variables
+
+### JIMP
+
+• `Const` **JIMP**: `any` = `null`
+
 ## Functions
 
 ### createBuffer

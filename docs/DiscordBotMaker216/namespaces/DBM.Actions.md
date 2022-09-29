@@ -440,7 +440,7 @@ ___
 
 ### findMemberOrUserFromID
 
-▸ **findMemberOrUserFromID**(`id`, `server`): `Promise`<`any`\>
+▸ **findMemberOrUserFromID**(`id`, `server`): `Promise`<`User`\>
 
 #### Parameters
 
@@ -451,7 +451,7 @@ ___
 
 #### Returns
 
-`Promise`<`any`\>
+`Promise`<`User`\>
 
 ___
 
@@ -656,7 +656,7 @@ ___
 
 ### getCustomEmoji
 
-▸ **getCustomEmoji**(`nameOrId`): `any`
+▸ **getCustomEmoji**(`nameOrId`): `GuildEmoji`
 
 #### Parameters
 
@@ -666,7 +666,7 @@ ___
 
 #### Returns
 
-`any`
+`GuildEmoji`
 
 ___
 

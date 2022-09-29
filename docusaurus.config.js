@@ -131,7 +131,10 @@ const config = {
         // @ts-ignore
         name: 'DBM bot.js',
         excludeExternals: true,
-        plugin: ['typedoc-plugin-merge-modules'],
+        plugin: [
+          'typedoc-plugin-merge-modules',
+          'typedoc-cross-link-types'
+        ],
         categorizeByGroup: false,
 
         // @ts-ignore
@@ -142,6 +145,9 @@ const config = {
           position: 0,
           fullNames: false,
         },
+
+        'cross-package-definitions': [
+        ],
       },
     ],
     [

@@ -1,0 +1,157 @@
+---
+id: "MsgType"
+title: "Enumeration: MsgType"
+sidebar_label: "MsgType"
+sidebar_position: 0
+custom_edit_url: null
+---
+
+## Enumeration Members
+
+### CANNOT\_FIND\_USER\_BY\_ID
+
+• **CANNOT\_FIND\_USER\_BY\_ID** = ``301``
+
+___
+
+### CHANNEL\_PARTIAL\_REQUIRED
+
+• **CHANNEL\_PARTIAL\_REQUIRED** = ``401``
+
+___
+
+### DATA\_PARSING\_ERROR
+
+• **DATA\_PARSING\_ERROR** = ``1``
+
+___
+
+### DUPLICATE\_BUTTON\_ID
+
+• **DUPLICATE\_BUTTON\_ID** = ``10``
+
+___
+
+### DUPLICATE\_MESSAGE\_COMMAND
+
+• **DUPLICATE\_MESSAGE\_COMMAND** = ``6``
+
+___
+
+### DUPLICATE\_SELECT\_ID
+
+• **DUPLICATE\_SELECT\_ID** = ``11``
+
+___
+
+### DUPLICATE\_SLASH\_COMMAND
+
+• **DUPLICATE\_SLASH\_COMMAND** = ``3``
+
+___
+
+### DUPLICATE\_SLASH\_PARAMETER
+
+• **DUPLICATE\_SLASH\_PARAMETER** = ``7``
+
+___
+
+### DUPLICATE\_USER\_COMMAND
+
+• **DUPLICATE\_USER\_COMMAND** = ``5``
+
+___
+
+### ERROR\_CREATING\_AUDIO
+
+• **ERROR\_CREATING\_AUDIO** = ``203``
+
+___
+
+### ERROR\_GETTING\_YT\_INFO
+
+• **ERROR\_GETTING\_YT\_INFO** = ``202``
+
+___
+
+### INVALID\_SLASH\_COMMAND\_SERVER\_ID
+
+• **INVALID\_SLASH\_COMMAND\_SERVER\_ID** = ``9``
+
+___
+
+### INVALID\_SLASH\_NAME
+
+• **INVALID\_SLASH\_NAME** = ``4``
+
+___
+
+### INVALID\_SLASH\_PARAMETER\_NAME
+
+• **INVALID\_SLASH\_PARAMETER\_NAME** = ``8``
+
+___
+
+### MISSING\_ACTION
+
+• **MISSING\_ACTION** = ``0``
+
+___
+
+### MISSING\_ACTIONS
+
+• **MISSING\_ACTIONS** = ``2``
+
+___
+
+### MISSING\_APPLICATION\_COMMAND\_ACCESS
+
+• **MISSING\_APPLICATION\_COMMAND\_ACCESS** = ``100``
+
+___
+
+### MISSING\_MEMBER\_INTENT\_FIND\_USER\_ID
+
+• **MISSING\_MEMBER\_INTENT\_FIND\_USER\_ID** = ``300``
+
+___
+
+### MISSING\_MUSIC\_MODULES
+
+• **MISSING\_MUSIC\_MODULES** = ``101``
+
+___
+
+### MUTABLE\_VOLUME\_DISABLED
+
+• **MUTABLE\_VOLUME\_DISABLED** = ``200``
+
+___
+
+### MUTABLE\_VOLUME\_NOT\_IN\_CHANNEL
+
+• **MUTABLE\_VOLUME\_NOT\_IN\_CHANNEL** = ``201``
+
+___
+
+### SERVER\_MESSAGE\_INTENT\_REQUIRED
+
+• **SERVER\_MESSAGE\_INTENT\_REQUIRED** = ``400``
+
+___
+
+### SUB\_COMMAND\_ALREADY\_EXISTS
+
+• **SUB\_COMMAND\_ALREADY\_EXISTS** = ``13``
+
+___
+
+### SUB\_COMMAND\_GROUP\_ALREADY\_EXISTS
+
+• **SUB\_COMMAND\_GROUP\_ALREADY\_EXISTS** = ``14``
+
+___
+
+### TOO\_MANY\_SPACES\_SLASH\_NAME
+
+• **TOO\_MANY\_SPACES\_SLASH\_NAME** = ``12``

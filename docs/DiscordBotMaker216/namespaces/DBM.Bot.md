@@ -11,67 +11,89 @@ custom_edit_url: null
 
 ### $anym
 
-• `Const` **$anym**: `any`[] = `[]`
+• `Const` **$anym**: `any`[]
+
+Any message commands
 
 ___
 
 ### $button
 
-• `Const` **$button**: `Object` = `{}`
+• `Const` **$button**: `Object`
+
+Button interactions
 
 ___
 
 ### $cmds
 
-• `Const` **$cmds**: `Object` = `{}`
+• `Const` **$cmds**: `Object`
+
+Normal commands
 
 ___
 
 ### $evts
 
-• `Const` **$evts**: `Object` = `{}`
+• `Const` **$evts**: `Object`
+
+Events
 
 ___
 
 ### $icds
 
-• `Const` **$icds**: `any`[] = `[]`
+• `Const` **$icds**: `any`[]
+
+Includes word commands
 
 ___
 
 ### $msge
 
-• `Const` **$msge**: `Object` = `{}`
+• `Const` **$msge**: `Object`
+
+Message commands
 
 ___
 
 ### $other
 
-• `Const` **$other**: `Object` = `{}`
+• `Const` **$other**: `Object`
+
+Manual commands
 
 ___
 
 ### $regx
 
-• `Const` **$regx**: `any`[] = `[]`
+• `Const` **$regx**: `any`[]
+
+Regular Expression commands
 
 ___
 
 ### $select
 
-• `Const` **$select**: `Object` = `{}`
+• `Const` **$select**: `Object`
+
+Select interactions
 
 ___
 
 ### $slash
 
-• `Const` **$slash**: `Object` = `{}`
+• `Const` **$slash**: `Object`
+
+Slash commands
 
 ___
 
 ### $user
 
-• `Const` **$user**: `Object` = `{}`
+• `Const` **$user**: `Object`
+
+User commands
 
 ___
 
@@ -95,13 +117,17 @@ ___
 
 ### applicationCommandData
 
-• `Const` **applicationCommandData**: `any`[] = `[]`
+• `Const` **applicationCommandData**: `any`[]
 
 ___
 
 ### bot
 
-• `Const` **bot**: `any` = `null`
+• `Const` **bot**: `DiscordJS.Client`
+
+**`Link`**
+
+[discord.js/Client](https://discord.js.org/#/docs/discord.js/13.11.0/class/Client)
 
 ## Functions
 
@@ -109,11 +135,15 @@ ___
 
 ▸ **checkCommand**(`msg`): `boolean`
 
+**`Link`**
+
+[discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `any` |
+| `msg` | `Message`<`boolean`\> |
 
 #### Returns
 
@@ -135,11 +165,15 @@ ___
 
 ▸ **checkIncludes**(`msg`): `void`
 
+**`Link`**
+
+[discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `any` |
+| `msg` | `Message`<`boolean`\> |
 
 #### Returns
 
@@ -151,11 +185,15 @@ ___
 
 ▸ **checkRegExps**(`msg`): `void`
 
+**`Link`**
+
+[discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `any` |
+| `msg` | `Message`<`boolean`\> |
 
 #### Returns
 
@@ -165,27 +203,27 @@ ___
 
 ### checkTag
 
-▸ **checkTag**(`content`): `any`
+▸ **checkTag**(`content`): `string` \| ``null``
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `content` | `any` |
+| `content` | `string` |
 
 #### Returns
 
-`any`
+`string` \| ``null``
 
 ___
 
 ### clearUnspecifiedServerCommands
 
-▸ **clearUnspecifiedServerCommands**(): `any`
+▸ **clearUnspecifiedServerCommands**(): `boolean`
 
 #### Returns
 
-`any`
+`boolean`
 
 ___
 
@@ -197,8 +235,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `com` | `any` |
-| `name` | `any` |
+| `com` | `Object` |
+| `name` | `string` |
 
 #### Returns
 
@@ -206,40 +244,40 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `description` | `any` |
-| `name` | `any` |
+| `description` | `string` |
+| `name` | `string` |
 
 ___
 
 ### escapeRegExp
 
-▸ **escapeRegExp**(`text`): `any`
+▸ **escapeRegExp**(`text`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `text` | `any` |
+| `text` | `string` |
 
 #### Returns
 
-`any`
+`string`
 
 ___
 
 ### generateSlashCommandDescription
 
-▸ **generateSlashCommandDescription**(`com`): `any`
+▸ **generateSlashCommandDescription**(`com`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `com` | `any` |
+| `com` | `Object` |
 
 #### Returns
 
-`any`
+`string`
 
 ___
 
@@ -251,8 +289,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `tag` | `any` |
-| `allowPrefixSpace` | `any` |
+| `tag` | `string` |
+| `allowPrefixSpace` | `boolean` |
 
 #### Returns
 
@@ -262,11 +300,11 @@ ___
 
 ### getNoDescriptionText
 
-▸ **getNoDescriptionText**(): `any`
+▸ **getNoDescriptionText**(): `string`
 
 #### Returns
 
-`any`
+`string`
 
 ___
 
@@ -304,11 +342,15 @@ ___
 
 ▸ **initializeCommandsForNewServer**(`guild`): `void`
 
+**`Link`**
+
+[discord.js/Guild](https://discord.js.org/#/docs/discord.js/13.11.0/class/Guild)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guild` | `any` |
+| `guild` | `Guild` |
 
 #### Returns
 
@@ -318,11 +360,11 @@ ___
 
 ### intents
 
-▸ **intents**(): `any`
+▸ **intents**(): `number`
 
 #### Returns
 
-`any`
+`number`
 
 ___
 
@@ -354,8 +396,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `names` | `any` |
-| `data` | `any` |
+| `names` | `string`[] |
+| `data` | `Object` |
 
 #### Returns
 
@@ -367,11 +409,15 @@ ___
 
 ▸ **onAnyMessage**(`msg`): `void`
 
+**`Link`**
+
+[discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `any` |
+| `msg` | `Message`<`boolean`\> |
 
 #### Returns
 
@@ -383,11 +429,15 @@ ___
 
 ▸ **onButtonInteraction**(`interaction`): `void`
 
+**`Link`**
+
+[discord.js/ButtonInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/ButtonInteraction)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `interaction` | `any` |
+| `interaction` | `ButtonInteraction`<`CacheType`\> |
 
 #### Returns
 
@@ -399,11 +449,15 @@ ___
 
 ▸ **onContextMenuInteraction**(`interaction`): `void`
 
+**`Link`**
+
+[discord.js/ContextMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/ContextMenuInteraction)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `interaction` | `any` |
+| `interaction` | `ContextMenuInteraction`<`CacheType`\> |
 
 #### Returns
 
@@ -415,11 +469,15 @@ ___
 
 ▸ **onInteraction**(`interaction`): `void`
 
+**`Link`**
+
+[discord.js/Interaction](https://discord.js.org/#/docs/discord.js/13.11.0/class/Interaction)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `interaction` | `any` |
+| `interaction` | `Interaction`<`CacheType`\> |
 
 #### Returns
 
@@ -431,11 +489,15 @@ ___
 
 ▸ **onMessage**(`msg`): `void`
 
+**`Link`**
+
+[discord.js/Message](https://discord.js.org/#/docs/discord.js/13.11.0/class/Message)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `msg` | `any` |
+| `msg` | `Message`<`boolean`\> |
 
 #### Returns
 
@@ -447,11 +509,15 @@ ___
 
 ▸ **onMessageContextMenuInteraction**(`interaction`): `void`
 
+**`Link`**
+
+[discord.js/MessageContextMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/MessageContextMenuInteraction)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `interaction` | `any` |
+| `interaction` | `MessageContextMenuInteraction`<`CacheType`\> |
 
 #### Returns
 
@@ -489,11 +555,15 @@ ___
 
 ▸ **onSelectMenuInteraction**(`interaction`): `void`
 
+**`Link`**
+
+[discord.js/SelectMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/SelectMenuInteraction)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `interaction` | `any` |
+| `interaction` | `SelectMenuInteraction`<`CacheType`\> |
 
 #### Returns
 
@@ -505,11 +575,15 @@ ___
 
 ▸ **onServerJoin**(`guild`): `void`
 
+**`Link`**
+
+[discord.js/Guild](https://discord.js.org/#/docs/discord.js/13.11.0/class/Guild)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guild` | `any` |
+| `guild` | `Guild` |
 
 #### Returns
 
@@ -521,11 +595,15 @@ ___
 
 ▸ **onSlashCommandInteraction**(`interaction`): `void`
 
+**`Link`**
+
+[discord.js/CommandInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/CommandInteraction)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `interaction` | `any` |
+| `interaction` | `CommandInteraction`<`CacheType`\> |
 
 #### Returns
 
@@ -537,11 +615,15 @@ ___
 
 ▸ **onUserContextMenuInteraction**(`interaction`): `void`
 
+**`Link`**
+
+[discord.js/UserContextMenuInteraction](https://discord.js.org/#/docs/discord.js/13.11.0/class/UserContextMenuInteraction)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `interaction` | `any` |
+| `interaction` | `UserContextMenuInteraction`<`CacheType`\> |
 
 #### Returns
 
@@ -561,11 +643,11 @@ ___
 
 ### populateTagRegex
 
-▸ **populateTagRegex**(): `any`
+▸ **populateTagRegex**(): `RegExp` \| `void`
 
 #### Returns
 
-`any`
+`RegExp` \| `void`
 
 ___
 
@@ -587,7 +669,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `actions` | `any` |
+| `actions` | `any`[] |
 
 #### Returns
 
@@ -643,8 +725,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `interactionId` | `any` |
-| `data` | `any` |
+| `interactionId` | `string` |
+| `data` | `Object` |
 
 #### Returns
 
@@ -660,8 +742,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `interactionId` | `any` |
-| `data` | `any` |
+| `interactionId` | `string` |
+| `data` | `Object` |
 
 #### Returns
 
@@ -687,7 +769,7 @@ ___
 
 | Name | Type | Default value |
 | :------ | :------ | :------ |
-| `commands` | `any` | `undefined` |
+| `commands` | `Object` | `undefined` |
 | `printMissingAccessError` | `boolean` | `true` |
 
 #### Returns
@@ -704,8 +786,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `commands` | `any` |
-| `serverIdList` | `any` |
+| `commands` | `Object` |
+| `serverIdList` | `string`[] |
 
 #### Returns
 
@@ -717,13 +799,17 @@ ___
 
 ▸ **setCommandsForServer**(`guild`, `commands`, `printMissingAccessError`): `void`
 
+**`Link`**
+
+[discord.js/Guild](https://discord.js.org/#/docs/discord.js/13.11.0/class/Guild)
+
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `guild` | `any` |
-| `commands` | `any` |
-| `printMissingAccessError` | `any` |
+| `guild` | `Guild` |
+| `commands` | `Object` |
+| `printMissingAccessError` | `boolean` |
 
 #### Returns
 
@@ -739,7 +825,7 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `commands` | `any` |
+| `commands` | `Object` |
 
 #### Returns
 
@@ -779,49 +865,49 @@ ___
 
 ### validateSlashCommandDescription
 
-▸ **validateSlashCommandDescription**(`desc`): `any`
+▸ **validateSlashCommandDescription**(`desc`): `string`
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `desc` | `any` |
+| `desc` | `string` |
 
 #### Returns
 
-`any`
+`string`
 
 ___
 
 ### validateSlashCommandName
 
-▸ **validateSlashCommandName**(`name`): `any`
+▸ **validateSlashCommandName**(`name`): `string`[] \| ``false``
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `any` |
+| `name` | `string` |
 
 #### Returns
 
-`any`
+`string`[] \| ``false``
 
 ___
 
 ### validateSlashCommandParameterName
 
-▸ **validateSlashCommandParameterName**(`name`): `any`
+▸ **validateSlashCommandParameterName**(`name`): `string` \| ``false``
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `name` | `any` |
+| `name` | `string` |
 
 #### Returns
 
-`any`
+`string` \| ``false``
 
 ___
 
@@ -833,8 +919,8 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `parameters` | `any` |
-| `commandName` | `any` |
+| `parameters` | `any`[] |
+| `commandName` | `string` |
 
 #### Returns
 
