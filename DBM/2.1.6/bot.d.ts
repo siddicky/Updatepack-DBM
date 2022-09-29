@@ -3022,7 +3022,7 @@ namespace DBM.Events {
 }
 
 namespace DBM.Images {
-  JIMP = null;
+  const JIMP = null;
   try {
     Images.JIMP = require('jimp');
   } catch {}
