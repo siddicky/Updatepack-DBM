@@ -9,7 +9,7 @@ const config = {
   title: 'DBM Mods Documentation',
   tagline: 'For all your dbm mod development needs.',
   url: 'https://docs.dbm-network.org/',
-  baseUrl: '/documentation/',
+  baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
